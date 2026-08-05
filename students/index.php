@@ -1,5 +1,8 @@
 <?php
+require_once __DIR__ . "/../config/session.php";
 require_once __DIR__ . "/../config/db.php";
+require_once __DIR__ . "/../includes/messages.php";
+
 if (isset($_GET['search'])&& !empty($_GET['search'])) {
     $search = $_GET['search'];
     $query = "SELECT * FROM students WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR phone LIKE '%$search%'";
