@@ -1,7 +1,16 @@
 <?php
 require_once __DIR__ . "/../config/db.php";
-$query = mysqli_query($connection, "SELECT * FROM students");
-$student = mysqli_fetch_all($query, MYSQLI_ASSOC);
+if (isset($_POST['search'])&& !empty($_POST['search'])) {
+    $search = $_POST['search'];
+    $query = "SELECT * FROM students WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR phone LIKE '%$search%'";
+
+    $result = mysqli_query($connection, $query);
+} else {
+$result = mysqli_query($connection, "SELECT * FROM students");
+}
+
+$student = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
 
 ?>
 
@@ -15,6 +24,10 @@ $student = mysqli_fetch_all($query, MYSQLI_ASSOC);
 <body>
     <h1>Students</h1>
     <a href="add.php">Add New Student</a>
+    <form method="POST" action="index.php">
+        <input type="text" name="search" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
     <table border="1">
         <tr>
             <th>ID</th>
