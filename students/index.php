@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../config/db.php";
-if (isset($_POST['search'])&& !empty($_POST['search'])) {
-    $search = $_POST['search'];
+if (isset($_GET['search'])&& !empty($_GET['search'])) {
+    $search = $_GET['search'];
     $query = "SELECT * FROM students WHERE name LIKE '%$search%' OR email LIKE '%$search%' OR phone LIKE '%$search%'";
 
     $result = mysqli_query($connection, $query);
@@ -24,7 +24,7 @@ $student = mysqli_fetch_all($result, MYSQLI_ASSOC);
 <body>
     <h1>Students</h1>
     <a href="add.php">Add New Student</a>
-    <form method="POST" action="index.php">
+    <form method="GET" action="index.php">
         <input type="text" name="search" placeholder="Search...">
         <button type="submit">Search</button>
     </form>
